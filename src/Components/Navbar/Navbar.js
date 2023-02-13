@@ -1,7 +1,7 @@
 import { React, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import { Nav, Navbar } from 'react-bootstrap';
-import { NavLink, Link, Outlet } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import './navbar.css';
 

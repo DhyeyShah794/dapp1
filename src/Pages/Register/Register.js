@@ -5,7 +5,6 @@ import { toast } from 'react-toastify';
 const Register = () => {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
-        // Try to set registration to true in localStorage
         try {
             localStorage.setItem('registration', 'true');
             toast.success('Registration successful!', {
