@@ -1,15 +1,28 @@
 import { React } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 const Register = () => {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
+        // Try to set registration to true in localStorage
+        try {
+            localStorage.setItem('registration', 'true');
+            toast.success('Registration successful!', {
+                autoClose: 1000,
+            });
+            navigate('/patient');
+            const login = document.getElementById('login');
+            const register = document.getElementById('register');
+            const logout = document.getElementById('logout');
+            login.style.display = 'none';
+            register.style.display = 'none';
+            logout.style.display = 'inline';
+        }
+        catch (err) {
+            toast.error('Registration failed!');
+        }
         e.preventDefault();
-        toast.success('Registration successful', {
-            autoClose: 1000,
-        });
-        navigate('/patient');
     }
 
     const handleInput = (e) => {
