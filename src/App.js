@@ -6,10 +6,13 @@ import Register from './Pages/Register/Register';
 import Patient from './Pages/Patient/Patient';
 import Doctor from './Pages/Doctor/Doctor';
 import NotFound from './Pages/NotFound/NotFound';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer position="top-center" />
       <NavigationBar />
       <Routes>
         <Route path="/" element={<Login />} />

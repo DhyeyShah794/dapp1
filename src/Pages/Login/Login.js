@@ -17,10 +17,11 @@ const Login = () => {
                     </div>
                     <div className="text-sm mt-4 p-2">Login is linked to your Metamask Account</div>
                 </div>
-                <div>
-                    <button className="mb-4 p-2 text-white bg-blue-600 rounded-md">
-                        <Link to="/register">Login</Link>
-                    </button>
+                
+                <div className="h-12 mt-4 mb-0 pb-0">
+                    <Link className="p-2 text-white bg-blue-600 rounded-md" to="/register">
+                        <button>Login</button>
+                    </Link>
                 </div>
             </div>
         </div>
