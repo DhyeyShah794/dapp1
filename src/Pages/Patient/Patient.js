@@ -1,17 +1,27 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 
-const Patient = () => {
+const Patient = ({ patientName, patientAge, publicKey, diagnosedBy, diagnosisTime, diagnosis, comments, doctorList }) => {
+
+    const [doctor, setDoctor] = useState(doctorList[0].value);
+
     const handleRecords = () => {
-        var buttonText = document.getElementById('show-records-btn').innerHTML;
+        let buttonText = document.getElementById('show-records-btn').innerHTML;
         if (buttonText === 'View medical records') {
             document.getElementById('show-records-btn').innerHTML = 'Hide medical records';
-            // document.getElementById('records').style.display = 'block';
+            document.getElementById('details').style.display = 'block';
         }
         else {
             document.getElementById('show-records-btn').innerHTML = 'View medical records';
-            // document.getElementById('records').style.display = 'none';
+            document.getElementById('details').style.display = 'none';
         }
     }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Doctor selected: ' + doctor);
+    }
+
+
     return (
         <div className="flex flex-col m-auto mt-24 w-fit">
             <div className="patient-card w-full">
@@ -20,11 +30,11 @@ const Patient = () => {
                     <tbody>
                         <tr className="h-8 border-y-2 border-solid border-slate-300">
                             <th className="w-48 text-left">Name:</th>
-                            <td id="name" className="w-96 text-left">John Doe</td>
+                            <td id="name" className="w-96 text-left">{patientName}</td>
                         </tr>
                         <tr className="h-8">
                             <th className="text-left">Age:</th>
-                            <td id="age" className="text-left">21</td>
+                            <td id="age" className="text-left">{patientAge}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -35,6 +45,18 @@ const Patient = () => {
                         View medical records
                     </button>
                 </div>
+
+                <div id="details" className="w-2/3 m-4 p-2 px-4 bg-slate-200 rounded-md hidden">
+                    <ul className="text-sm">
+                        <li className="text-left">Name: {patientName}</li>
+                        <li className="text-left">Public Key: {publicKey}</li>
+                        <br />
+                        <li className="text-left">Diagnosed By: {diagnosedBy}</li>
+                        <li className="text-left">Diagnosis Time: {diagnosisTime}</li>
+                        <li className="text-left">Diagnosis: {diagnosis}</li>
+                        <li className="text-left">Comments: {comments}</li>
+                    </ul>
+                </div>
             </div>
 
             <div className="patient-card w-full">
@@ -44,10 +66,10 @@ const Patient = () => {
                         <tr>
                             <td className="w-24 text-left">Doctor:</td>
                             <td className="text-left">
-                                <select className="w-72 px-2 py-1 bg-white border-2 border-solid border-slate-200">
-                                    <option value="Dr. 1">Dr. 1</option>
-                                    <option value="Dr. 2">Dr. 2</option>
-                                    <option value="Dr. 3">Dr. 3</option>
+                                <select value={doctor} className="w-72 px-2 py-1 bg-white border-2 border-solid border-slate-200" onChange={(e) => setDoctor(e.target.value)}>
+                                    {doctorList.map((doctor) => (
+                                        <option key={doctor.value} value={doctor.value}>{doctor.text}</option>
+                                    ))}
                                 </select>
                             </td>
                         </tr>
@@ -55,7 +77,7 @@ const Patient = () => {
                 </table>
 
                 <div className="h-8 mb-3">
-                    <button className="text-sm p-2 bg-sky-700 text-white rounded-md">Submit</button>
+                    <button onClick={handleSubmit} className="text-sm p-2 bg-sky-700 text-white rounded-md">Submit</button>
                 </div>
             </div>
 
@@ -68,20 +90,15 @@ const Patient = () => {
                             <td className="w-64 text-left">Public Key</td>
                             <td className="w-32 text-left">Revoke access</td>
                         </tr>
-                        <tr className="h-12">
-                            <td className="text-left">Dr. 1</td>
-                            <td className="text-left">nDfUyIiz8yD3MHyrDw5pg9RQ8</td>
-                            <td className="">
-                                <button className="m-auto text-sm p-1 bg-red-600 text-white rounded-md">Revoke</button>
-                            </td>
-                        </tr>
-                        <tr className="h-8">
-                            <td className="text-left">Dr. 2</td>
-                            <td className="text-left">L25xiHMuHQZhx42SRFVCKfMB3</td>
-                            <td className="h-8 flex justify-center items-center">
-                                <button className="m-auto text-sm p-1 bg-red-600 text-white rounded-md">Revoke</button>
-                            </td>
-                        </tr>
+                        {doctorList.map((doctor) => (
+                            <tr key={doctor.value} className="h-8">
+                                <td className="text-left">{doctor.text}</td>
+                                <td className="text-left">{doctor.publicKey}</td>
+                                <td className="h-8 flex justify-center items-center">
+                                    <button className="m-auto text-sm p-1 bg-red-600 text-white rounded-md">Revoke</button>
+                                </td>
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>
