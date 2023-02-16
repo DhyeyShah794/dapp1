@@ -21,6 +21,10 @@ const Patient = ({ patientName, patientAge, publicKey, diagnosedBy, diagnosisTim
         console.log('Doctor selected: ' + doctor);
     }
 
+    const revokeAccess = (docName) => {
+        console.log('Access revoked for ' + docName);
+    }
+
 
     return (
         <div className="flex flex-col m-auto mt-24 w-fit">
@@ -92,10 +96,10 @@ const Patient = ({ patientName, patientAge, publicKey, diagnosedBy, diagnosisTim
                         </tr>
                         {doctorList.map((doctor) => (
                             <tr key={doctor.value} className="h-8">
-                                <td className="text-left">{doctor.text}</td>
+                                <td id={`${doctor.text}`} className="text-left">{doctor.text}</td>
                                 <td className="text-left">{doctor.publicKey}</td>
                                 <td className="h-8 flex justify-center items-center">
-                                    <button className="m-auto text-sm p-1 bg-red-600 text-white rounded-md">Revoke</button>
+                                    <button className="m-auto text-sm p-1 bg-red-600 text-white rounded-md" onClick={() => revokeAccess(doctor.text)}>Revoke</button>
                                 </td>
                             </tr>
                         ))}

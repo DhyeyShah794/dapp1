@@ -25,6 +25,33 @@ function App() {
     ]
   }
 
+  const patientData2 = {
+    patientName: 'Jane Doe',
+    patientAge: 25,
+    publicKey: 'IDfVhbtAwqGycinWPCsA',
+    diagnosedBy: 'Doctor 1',
+    diagnosisTime: '2021-05-01 12:00:00',
+    diagnosis: 'Covid-19',
+    comments: 'Patient is in critical condition. Please take care of him.',
+    doctorList: [
+      {value: 'Dr. 1', text: 'Doctor 1', publicKey: 'gzxs0qOarPiu0qCweRmw'},
+      {value: 'Dr. 2', text: 'Doctor 2', publicKey: 'Au1dEaB6p3kXLx5mbrjH'},
+      {value: 'Dr. 3', text: 'Doctor 3', publicKey: 'IDfVhbtAwqGycinWPCsA'},
+    ]
+  }
+
+  const patientList = [
+    patientData,
+    patientData2,
+  ];
+
+  const doctorData = {
+    doctorName: 'Doctor 1',
+    doctorAge: 35,
+    patientList: patientList,
+  }
+
+
   return (
     <div className="App">
       <ToastContainer position="top-center" />
@@ -33,7 +60,7 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/patient" element={<Patient {...patientData} />} />
-        <Route path="/doctor" element={<Doctor />} />
+        <Route path="/doctor" element={<Doctor {...doctorData}/>} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </div>
