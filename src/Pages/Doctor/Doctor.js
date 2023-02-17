@@ -1,9 +1,11 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import PatientCell from './PatientCell';
 
 const Doctor = ({ doctorName, doctorAge, patientList }) => {
+    const [disease, setDisease] = useState('');
     const handleView = (publicKey) => {
         const patient = document.getElementById(publicKey);
+        const otherPatients = document.getElementsByClassName("patient-details");
         const btn = document.getElementById(`${publicKey}-btn`);
         if (patient.classList.contains("hidden")) {
             patient.classList.remove("hidden");
@@ -47,8 +49,8 @@ const Doctor = ({ doctorName, doctorAge, patientList }) => {
                     </tr>
 
                     {patientList.map((patient) => (
-                        <tbody>
-                            <tr className=" h-full border-y-2 border-solid border-slate-300">
+                        <tbody className="patient-details ">
+                            <tr className="h-full border-y-2 border-solid border-slate-300">
                                 <td className="text-left">{patient.patientName}</td>
                                 <td className="text-left">
                                     {patient.publicKey}
@@ -58,7 +60,7 @@ const Doctor = ({ doctorName, doctorAge, patientList }) => {
                                 </td>
                             </tr>
                             <tr>
-                                <td id={`${patient.publicKey}`} className="flex justify-center m-4 p-2 px-4 bg-slate-200 rounded-md hidden">
+                                <td id={`${patient.publicKey}`} className="m-4 p-2 px-4 bg-slate-200 rounded-md hidden">
                                     <ul className="text-sm">
                                         <li className="text-left">Name: {patient.patientName}</li>
                                         <li className="text-left">Public Key: {patient.publicKey}</li>
@@ -68,6 +70,20 @@ const Doctor = ({ doctorName, doctorAge, patientList }) => {
                                         <li className="text-left">Diagnosis: {patient.diagnosis}</li>
                                         <li className="text-left">Comments: {patient.comments}</li>
                                     </ul>
+                                    <div className="flex flex-col gap-4 mt-4">
+                                    <select value={disease} className="w-72 px-2 py-1 bg-white border-2 border-solid border-slate-200" onChange={(e) => setDisease(e.target.value)}>
+                                        <option value="Covid-19">Covid-19</option>
+                                        <option value="Diabetes">Diabetes</option>
+                                        <option value="Hypertension">Hypertension</option>
+                                        <option value="Asthma">Asthma</option>
+                                        <option value="Cancer">Cancer</option>
+                                        <option value="Heart Disease">Heart Disease</option>
+                                    </select>
+                                    <div className="flex flex-row gap-4">
+                                        <textarea className="w-72 px-2 py-1 bg-white border-2 border-solid border-slate-200" placeholder="Enter details to be added" />
+                                        <button className="h-8 w-24 px-2 py-1 bg-green-600 text-white rounded-md">Submit</button>
+                                    </div>
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
